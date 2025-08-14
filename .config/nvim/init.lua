@@ -33,7 +33,11 @@ vim.opt.winborder = "rounded"
 
 vim.pack.add({
     { src = "https://github.com/kylechui/nvim-surround.git" },
-    { src = "https://github.com/catppuccin/nvim.git" },
+    { 
+        src = "https://github.com/catppuccin/nvim.git",
+        -- version = "v1.10.0",
+        -- opt = false,
+    },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/nvim-tree/nvim-web-devicons.git" },
     { src = "https://github.com/echasnovski/mini.pick" },
