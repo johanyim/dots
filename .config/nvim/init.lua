@@ -40,7 +40,7 @@ vim.pack.add({
     },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/nvim-tree/nvim-web-devicons.git" },
-    { src = "https://github.com/echasnovski/mini.pick" },
+    { src = "https://github.com/echasnovski/mini.nvim" },
     { src = "https://github.com/nvim-lua/plenary.nvim" },
     { src = "https://github.com/ThePrimeagen/harpoon" },
     { src = "https://github.com/alexghergh/nvim-tmux-navigation.git" },
@@ -84,12 +84,6 @@ require("nvim-surround").setup({
 
 
 require("catppuccin").setup({
-    color_overrides = {
-        latte = {},
-        frappe = {},
-        macchiato = {},
-        mocha = {},
-    },
     no_italic = true,
     highlight_overrides = {
         all = function(colors)
@@ -120,6 +114,18 @@ require("catppuccin").setup({
     integrations = {
         cmp = true,
         treesitter = true,
+        harpoon = true,
+        mason = true,
+        mini = {
+            enabled = true,
+            indentscope_color = "green",
+        },
+        -- removes some of the stupid colors on rust 
+        semantic_tokens = false,
+        nvim_surround = true,
+
+
+
     },
 })
 
@@ -137,8 +143,17 @@ require("oil").setup({
 })
 vim.keymap.set("n", "-", "<cmd>Oil<CR>", {})
 
+
+require("mini.extra").setup({})
 require("mini.pick").setup({})
-vim.keymap.set("n", "<space><space>", "<cmd>Pick files<CR>", {})
+vim.keymap.set("n", "<space><space>", "<cmd>Pick resume<CR>", {}) -- TODO: defult to Pick files
+vim.keymap.set("n", "<space>f", "<cmd>Pick files<CR>", {}) 
+vim.keymap.set("n", "<space>o", "<cmd>Pick oldfiles<CR>", {})
+vim.keymap.set("n", "<space>g", "<cmd>Pick grep_live<CR>", {})
+vim.keymap.set("n", "z=", "<cmd>Pick spellsuggest<CR>", {})
+
+require("mini.pairs").setup({})
+require("mini.notify").setup({})
 
 
 require("harpoon").setup({
@@ -177,7 +192,6 @@ require("todo-comments").setup({
         WARN = { icon = " ", color = "#f9e2af", alt = { "WARNING" } },
         IDEA = { icon = "󰛨 ", color = "#fab387", alt = { "FUTURE" } },
         ERROR ={ icon = " ", color = "#f38ba8", alt = {"BUG", "FIXME"} },
-
         STEP0 = { icon = "󰎡 ", color = "#b4befe", alt = { "0." } },
         STEP1 = { icon = "󰎤 ", color = "#b4befe", alt = { "1." } },
         STEP2 = { icon = "󰎧 ", color = "#b4befe", alt = { "2." } },
@@ -193,13 +207,11 @@ require("todo-comments").setup({
     highlight = {multiline = true}
 })
 
-
 require("colorizer").setup({
     user_default_options = {
         tailwind = true,
     }
 })
-
 
 -- RUST
 vim.g.rustfmt_autosave = 1
@@ -218,16 +230,6 @@ require("rust-tools").setup({
             highlight = "LspInlayHint",
         },
         hover_actions = {
-            border = {
-                { "┏", "FloatBorder" },
-                { "━", "FloatBorder" },
-                { "┓", "FloatBorder" },
-                { "┃", "FloatBorder" },
-                { "┛", "FloatBorder" },
-                { "━", "FloatBorder" },
-                { "┗", "FloatBorder" },
-                { "┃", "FloatBorder" },
-            },
             auto_focus = false,
         },
     },
@@ -249,7 +251,6 @@ vim.diagnostic.config({
 
 vim.keymap.set("n", "<leader>d", function()
     if diagnostics_active then
-
         vim.diagnostic.config({
             virtual_text = false,
             virtual_lines = true,
@@ -276,10 +277,6 @@ require("nvim-treesitter.configs").setup({
     sync_install = true,
     auto_install = true,
 })
-
--- { src = "https://github.com/vxpm/ferris.nvim"},
--- { src = "https://github.com/rust-lang/rust.vim"},
--- { src = "https://git.sr.ht/~whynothugo/lsp_lines.nvim"},
 
 
 vim.pack.add({
@@ -339,14 +336,3 @@ cmp.setup({
         ghost_text = { hl_group = "GhostText" },
     },
 })
-
-
-
-
-
-
-
-
-
-
-
