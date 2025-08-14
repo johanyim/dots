@@ -48,8 +48,10 @@ vim.pack.add({
     { src = "https://github.com/vxpm/ferris.nvim"},
     { src = "https://github.com/rust-lang/rust.vim"},
     { src = "https://git.sr.ht/~whynothugo/lsp_lines.nvim"},
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter.git"},
     -- { src = "https://github.com/simrat/rustaceanvim.git" },
 })
+
 
 vim.keymap.set("n", "<C-y>", '"*y :let @+=@*<CR>', { noremap = true, desc = "Copy to clipboard" })
 vim.keymap.set("v", "<C-y>", '"*y :let @+=@*<CR>', { noremap = true, desc = "Copy to clipboard" })
@@ -235,6 +237,41 @@ require("rust-tools").setup({
 require("mason").setup({ })
 require("ferris").setup({ })
 require("lsp_lines").setup({ })
+local diagnostics_active = true
+vim.diagnostic.config({
+    virtual_lines = false,
+    virtual_text = true,
+})
+
+vim.keymap.set("n", "<leader>d", function()
+    if diagnostics_active then
+
+        vim.diagnostic.config({
+            virtual_text = false,
+            virtual_lines = true,
+        })
+    else
+        vim.diagnostic.config({
+            virtual_text = true,
+            virtual_lines = false,
+        })
+
+    end
+    diagnostics_active = not diagnostics_active
+end)
+
+
+require("nvim-treesitter").setup({})
+
+require("nvim-treesitter.configs").setup({
+    ensure_installed = {"rust", "lua"},
+    highlight = {
+        enable = true,
+    },
+    indent = { enable = true },
+    sync_install = true,
+    auto_install = true,
+})
 
 -- { src = "https://github.com/vxpm/ferris.nvim"},
 -- { src = "https://github.com/rust-lang/rust.vim"},

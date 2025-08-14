@@ -1,0 +1,3 @@
+# [build]
+# rustc-wrapper = "/home/user/.cargo/bin/sccache"
+
