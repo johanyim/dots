@@ -1,3 +1,4 @@
+local vim = vim
 local TAB_SIZE = 4
 local SCROLL_OFF = 4
 vim.opt.tabstop = TAB_SIZE
@@ -22,9 +23,13 @@ vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.signcolumn = "yes"
+vim.opt.swapfile = false
 vim.opt.wildmenu = true
 vim.opt.spelllang = "en_gb"
 vim.opt.termguicolors = true
+
+vim.opt.winborder = "rounded"
+
 
 vim.pack.add({
     { src = "https://github.com/kylechui/nvim-surround.git" },
@@ -37,8 +42,13 @@ vim.pack.add({
     { src = "https://github.com/alexghergh/nvim-tmux-navigation.git" },
     { src = "https://github.com/folke/todo-comments.nvim" },
     { src = "https://github.com/NvChad/nvim-colorizer.lua" },
-    
-    { src = "https://github.com/simrat/rustaceanvim.git" },
+    { src = "https://github.com/mason-org/mason.nvim"},
+    { src = "https://github.com/neovim/nvim-lspconfig.git"},
+    { src = "https://github.com/simrat39/rust-tools.nvim"},
+    { src = "https://github.com/vxpm/ferris.nvim"},
+    { src = "https://github.com/rust-lang/rust.vim"},
+    { src = "https://git.sr.ht/~whynothugo/lsp_lines.nvim"},
+    -- { src = "https://github.com/simrat/rustaceanvim.git" },
 })
 
 vim.keymap.set("n", "<C-y>", '"*y :let @+=@*<CR>', { noremap = true, desc = "Copy to clipboard" })
@@ -49,7 +59,7 @@ vim.keymap.set("v", "<C-Right>", "e", { noremap = true, desc = "C-Arrow move rig
 vim.keymap.set("n", "<C-Left>", "b", { noremap = true, desc = "C-Arrow move left" })
 vim.keymap.set("v", "<C-Left>", "b", { noremap = true, desc = "C-Arrow move left" })
 
-vim.lsp.enable({"lua_ls"})
+vim.lsp.enable({"lua_ls", "svelte-language-server" })
 
 vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, {})
 vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, {})
@@ -63,6 +73,9 @@ vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 require("nvim-surround").setup({
     move_cursor = false,
 })
+
+
+
 
 require("catppuccin").setup({
     color_overrides = {
@@ -154,9 +167,22 @@ vim.keymap.set("n", "<C-L>", harpoon_ui.toggle_quick_menu)
 require("todo-comments").setup({
     keywords = {
         TODO = { icon = " ", color = "#f2cdcd"},
+        NOTE = { icon = " ", color = "#b4befe", alt = { "INFO", "DEBUG" } },
         WARN = { icon = " ", color = "#f9e2af", alt = { "WARNING" } },
-        NOTE = { icon = " ", color = "#b4befe", alt = { "INFO" } },
-        IDEA = { icon = "󰛨 ", color = "#f9e2af", alt = { "FUTURE" } },
+        IDEA = { icon = "󰛨 ", color = "#fab387", alt = { "FUTURE" } },
+        ERROR ={ icon = " ", color = "#f38ba8", alt = {"BUG", "FIXME"} },
+
+        STEP0 = { icon = "󰎡 ", color = "#b4befe", alt = { "0." } },
+        STEP1 = { icon = "󰎤 ", color = "#b4befe", alt = { "1." } },
+        STEP2 = { icon = "󰎧 ", color = "#b4befe", alt = { "2." } },
+        STEP3 = { icon = "󰎪 ", color = "#b4befe", alt = { "3." } },
+        STEP4 = { icon = "󰎭 ", color = "#b4befe", alt = { "4." } },
+        STEP5 = { icon = "󰎱 ", color = "#b4befe", alt = { "5." } },
+        STEP6 = { icon = "󰎳 ", color = "#b4befe", alt = { "6." } },
+        STEP7 = { icon = "󰎶 ", color = "#b4befe", alt = { "7." } },
+        STEP8 = { icon = "󰎹 ", color = "#b4befe", alt = { "8." } },
+        STEP9 = { icon = "󰎼 ", color = "#b4befe", alt = { "9." } },
+        STEP10 ={ icon = "󰽽 ", color = "#b4befe", alt = { "10." } },
     },
     highlight = {multiline = true}
 })
@@ -167,4 +193,119 @@ require("colorizer").setup({
         tailwind = true,
     }
 })
+
+
+-- RUST
+vim.g.rustfmt_autosave = 1
+require("rust-tools").setup({ 
+    tools = {
+        inlay_hints = {
+            auto = true,
+            only_current_line = false,
+            show_parameter_hints = true,
+            parameter_hints_prefix = "<= ",
+            other_hints_prefix = "-> ",
+            max_len_align = false,
+            max_len_align_padding = 1,
+            right_align = false,
+            right_align_padding = 3,
+            highlight = "LspInlayHint",
+        },
+        hover_actions = {
+            border = {
+                { "┏", "FloatBorder" },
+                { "━", "FloatBorder" },
+                { "┓", "FloatBorder" },
+                { "┃", "FloatBorder" },
+                { "┛", "FloatBorder" },
+                { "━", "FloatBorder" },
+                { "┗", "FloatBorder" },
+                { "┃", "FloatBorder" },
+            },
+            auto_focus = false,
+        },
+    },
+    server = {
+        on_attach = function(_, bufnr)
+            -- Info and documentation + Hover actions
+            -- vim.lsp.inlay_hint.enable(false)
+        end,
+    },
+})
+require("mason").setup({ })
+require("ferris").setup({ })
+require("lsp_lines").setup({ })
+
+-- { src = "https://github.com/vxpm/ferris.nvim"},
+-- { src = "https://github.com/rust-lang/rust.vim"},
+-- { src = "https://git.sr.ht/~whynothugo/lsp_lines.nvim"},
+
+
+vim.pack.add({
+    { src = "https://github.com/hrsh7th/nvim-cmp.git"},
+    { src = "https://github.com/roobert/tailwindcss-colorizer-cmp.nvim" },
+    { src = "https://github.com/L3MON4D3/LuaSnip.git"},
+    -- dependencies "rafamadriz/friendly-snippets" },
+    { src = "https://github.com/saadparwaiz1/cmp_luasnip.git" },
+    { src = "https://github.com/neovim/nvim-lspconfig.git" },
+    { src = "https://github.com/hrsh7th/cmp-nvim-lsp.git" },
+    { src = "https://github.com/hrsh7th/cmp-buffer.git" },
+    { src = "https://github.com/hrsh7th/cmp-path.git" },
+    { src = "https://github.com/hrsh7th/cmp-cmdline.git" },
+})
+
+
+local cmp = require("cmp")
+cmp.setup({
+    sources = cmp.config.sources({
+        { name = "luasnip" },
+        { name = "nvim_lsp" },
+        { name = "path" },
+    }, {
+        { name = "buffer" },
+    }),
+    window = {
+        -- completion = cmp.config.window.bordered(),
+        -- documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-e>"] = cmp.mapping.abort(),
+
+        -- Alt-L must have a selection, cannot auto select
+        ["<M-l>"] = cmp.mapping.confirm({
+            i = function(fallback)
+                if cmp.visible() and cmp.get_active_entry() then
+                    cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+                else
+                    fallback()
+                end
+            end,
+            s = cmp.mapping.confirm({ select = true }),
+            c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+        }),
+        ["<M-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+        ["<M-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    }),
+    snippet = {
+        expand = function(args)
+            require("luasnip").lsp_expand(args.body)
+        end,
+    },
+    experimental = {
+        ghost_text = { hl_group = "GhostText" },
+    },
+})
+
+
+
+
+
+
+
+
+
+
 

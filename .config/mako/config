@@ -1,0 +1,23 @@
+outer-margin=8,0
+anchor=bottom-right
+border-size=2
+border-radius=8
+margin=8
+width=300
+height=400
+font=Departure Mono 14
+
+[urgency=low]
+default-timeout=5000
+background-color=#18182580
+border-color=#a6e3a180
+
+[urgency=normal]
+default-timeout=20000
+background-color=#18182580
+border-color=#b4befe80
+
+[urgency=critical]
+default-timeout=60000
+border-color=#f38ba8
+background-color=#181825

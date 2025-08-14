@@ -1,0 +1,226 @@
+configuration {
+    timeout {
+        action: "kb-cancel";
+        delay:  0;
+    }
+    filebrowser {
+        directories-first: true;
+        sorting-method:    "name";
+    }
+    terminal: "alacritty";
+    font: "Departure Mono 14";
+    modi: "drun";
+    show-icons: false;
+    drun-display-format: "{name}";
+    disable-history: false;
+    hide-scrollbar: false;
+    display-drun: "run";
+    sidebar-mode: false;
+}
+
+* {
+    background-color: #11111b;
+}
+
+window {
+    height: 600;
+    width: 600;
+    border: 2;
+    border-radius: 8;
+    border-color: #6c7086;
+}
+
+mainbox {
+    spacing: 0;
+    children: [ inputbar, message, listview ];
+}
+
+inputbar {
+    color: #cdd6f4;
+    padding: 14;
+    background-color: #11111b;
+}
+
+message {
+    padding: 10;
+    background-color: #6c7086;
+}
+
+listview {
+    border: 2 2 2 2;
+    background-color: #11111b;
+    dynamic: false;
+}
+
+textbox {
+    text-color: #cdd6f4;
+    background-color: inherit;
+}
+
+error-message {
+    border: 20 20 20 20;
+}
+
+
+entry, prompt, case-indicator {
+
+    text-color: inherit;
+}
+
+prompt {
+    margin: 0 0 0 0;
+}
+
+element.selected.normal {
+    background-color: #1e1e2e;
+}
+
+element-text {
+    margin: 0 10;
+    background-color: inherit;
+    text-color: #cdd6f4;
+    highlight: #f9e2af;
+}
+
+element-text .active, element-text .urgent {
+    text-color: #1e1e2e;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// {
+//   lib,
+//   baseColors,
+//   pkgs,
+//   config,
+//   ...
+// }:
+// let
+//   hex = lib.mapAttrs (name: hex: "#${hex}") baseColors;
+// in
+// {
+//   programs.rofi = {
+//     enable = true;
+//     # package = pkgs.rofi-wayland;
+//     terminal = "${pkgs.alacritty}/bin/alacritty";
+//     font = "Departure Mono 14";
+//     location = "center";
+//   }
+//
+//   programs.rofi.extraConfig = {
+//     modi = "drun";
+//     show-icons = false;
+//     drun-display-format = "{name}";
+//     disable-history = false;
+//     hide-scrollbar = false;
+//     display-drun = "";
+//     sidebar-mode = false;
+//   }
+//
+//   programs.rofi.theme =
+//     let
+//       inherit (config.lib.formats.rasi) mkLiteral;
+//     in
+//     {
+//
+//       "*" = {
+//         background-color = mkLiteral hex.crust;
+//       }
+//
+//       window = {
+//         height = 600;
+//         width = 600;
+//
+//         border = 2;
+//         border-radius = 8;
+//         border-color = mkLiteral hex.overlay0;
+//       }
+//
+//       mainbox = {
+//         spacing = 0;
+//         children = map mkLiteral [
+//           "inputbar"
+//           "message"
+//           "listview"
+//         ];
+//       }
+//
+//       inputbar = {
+//         color = mkLiteral hex.text;
+//         padding = 14;
+//         background-color = mkLiteral hex.crust;
+//       }
+//
+//       message = {
+//         padding = mkLiteral "10";
+//         background-color = mkLiteral hex.overlay0;
+//       }
+//
+//       listview = {
+//         border = mkLiteral "2 2 2 2";
+//         background-color = mkLiteral hex.crust;
+//         dynamic = mkLiteral "false";
+//       }
+//
+//       textbox = {
+//         text-color = mkLiteral hex.text;
+//         background-color = mkLiteral "inherit";
+//       }
+//
+//       error-message = {
+//         border = mkLiteral "20 20 20 20";
+//       }
+//
+//       "entry, prompt, case-indicator" = {
+//
+//         text-color = mkLiteral "inherit";
+//       }
+//
+//       prompt = {
+//         margin = mkLiteral "0 0 0 0";
+//       }
+//
+//       "element.selected.normal" = {
+//         background-color = mkLiteral hex.base;
+//       }
+//
+//       "element-text" = {
+//         margin = mkLiteral "0 10";
+//         background-color = mkLiteral "inherit";
+//         text-color = mkLiteral hex.text;
+//         highlight = mkLiteral hex.yellow;
+//       }
+//
+//       "element-text .active, element-text .urgent" = {
+//         text-color = mkLiteral hex.base;
+//       }
+//
+//     }
+//
+// }
