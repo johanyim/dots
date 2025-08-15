@@ -5,6 +5,12 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots) #show dotfiles
 
+# ENVIRONMENT
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$CARGO_HOME/.local/bin"
+export VISUAL=nvim
+export EDITOR=nvim
+export BROWSER=firefox
 
 # History 
 HISTSIZE="10000"
