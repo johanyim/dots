@@ -33,7 +33,7 @@ vim.opt.winborder = "rounded"
 
 vim.pack.add({
     { src = "https://github.com/kylechui/nvim-surround.git" },
-    { 
+    {
         src = "https://github.com/catppuccin/nvim.git",
         -- version = "v1.10.0",
         -- opt = false,
@@ -148,7 +148,6 @@ vim.keymap.set("n", "-", "<cmd>Oil<CR>", {})
 require("mini.extra").setup({})
 require("mini.pick").setup({})
 vim.keymap.set("n", "<space><space>", "<cmd>Pick resume<CR>", {}) -- TODO: defult to Pick files
-vim.keymap.set("n", "<space>f", "<cmd>Pick files<CR>", {})
 vim.keymap.set("n", "<space>p", "<cmd>Pick files<CR>", {})
 vim.keymap.set("n", "<space>o", "<cmd>Pick oldfiles<CR>", {})
 vim.keymap.set("n", "<space>g", "<cmd>Pick grep_live<CR>", {})
@@ -159,12 +158,12 @@ require("mini.pairs").setup({})
 
 
 require("harpoon").setup({
-    save_on_toggle = false,    
-    save_on_change = true,    
-    enter_on_sendcmd = false,    
-    tmux_autoclose_windows = false,    
-    excluded_filetypes = { "harpoon" },    
-    mark_branch = false,    
+    save_on_toggle = false,
+    save_on_change = true,
+    enter_on_sendcmd = false,
+    tmux_autoclose_windows = false,
+    excluded_filetypes = { "harpoon" },
+    mark_branch = false,
     tabline = false,
     tabline_prefix = " |",
     tabline_suffix = "| ",
@@ -182,7 +181,7 @@ require('nvim-tmux-navigation').setup({
 
 local harpoon_ui = require("harpoon.ui")
 vim.keymap.set("n", "<C-H>", require("harpoon.mark").add_file)
-vim.keymap.set("n", "<C-J>", harpoon_ui.nav_next) 
+vim.keymap.set("n", "<C-J>", harpoon_ui.nav_next)
 vim.keymap.set("n", "<C-K>", harpoon_ui.nav_prev)
 vim.keymap.set("n", "<C-L>", harpoon_ui.toggle_quick_menu)
 
@@ -217,7 +216,7 @@ require("colorizer").setup({
 
 -- RUST
 vim.g.rustfmt_autosave = 1
-require("rust-tools").setup({ 
+require("rust-tools").setup({
     tools = {
         inlay_hints = {
             auto = true,
@@ -236,7 +235,7 @@ require("rust-tools").setup({
         },
     },
     server = {
-        on_attach = function(_, bufnr)
+        on_attach = function(_, _)
             -- Info and documentation + Hover actions
             -- vim.lsp.inlay_hint.enable(false)
         end,
