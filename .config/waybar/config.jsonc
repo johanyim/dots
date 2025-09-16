@@ -5,8 +5,8 @@
     "spacing": 8,
     "reload_style_on_change": true,
 
-    // "height": 37, // thinkpad
-    "height": 30,
+    "height": 37, 
+    // "height": 30,
     // "output": [
     // "eDP-1"
     //         ],
@@ -107,8 +107,7 @@
     },
 
     "cpu": {
-        // "format": "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}", // thinkpad
-        "format": "{icon0}{icon1}{icon2}{icon3}",
+        "format": "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}", 
         "format-icons": [
             "<span foreground='#6c7086'>▁</span>",
             "<span foreground='#cdd6f4'>▂</span>",

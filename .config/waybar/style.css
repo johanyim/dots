@@ -31,9 +31,11 @@
     border: none;
     margin: 0;
     padding: 0;
+    /* font-family: "NotoSansM Nerd Font"; */
+    /* font-family: "Monaspace Krypton"; */
     font-family: "Departure Mono";
-    /* font-size: 16px; */ /* thinkpad */
-    font-size: 11px;
+    /* font-family: "Monocraft Nerd Font"; */
+    font-size: 16px;
     font-weight: 600;
 }
 
@@ -47,13 +49,35 @@ box#state,
 {
     background: @crust;
     border: 2px solid @surface2;
+    /* border: 2px solid @crust; */
     padding: 0 8px;
     border-radius: 8px
 }
 
 
+#cpu {
+    letter-spacing: 4px;
+    min-width: 160px;
+}
+
+/* box#life:hover, */
+/* box#controls:hover, */
+/* box#connections:hover, */
+/* #workspaces:hover, */
+/* #clock:hover */
+/* { */
+/*     transition-duration: 500ms; */
+/*     background: @base; */
+/*     border: 2px solid @overlay2; */
+/* } */
 
 
+
+
+
+/* .modules-right { */
+/*     gap: 30px; */
+/* } */
 
 window#waybar>box {
     margin: 4px 8px 0 8px;
@@ -70,7 +94,7 @@ window#waybar {
 }
 
 #workspaces button {
-    padding: 2px;
+    padding: 4px;
     color: @overlay0;
 }
 
@@ -188,6 +212,7 @@ window#waybar {
 }
 
 
+
 #temperature {
     color: @subtext0;
 }
@@ -198,12 +223,16 @@ window#waybar {
 
 #cpu {
     color: @text;
-    letter-spacing: 4px;
-    /* min-width: 160px; */ /* thinkpad */
-    min-width: 50px;
 }
+
+
+
+
+
 
 
 #clock  {
     color: @subtext0;
 }
+
+

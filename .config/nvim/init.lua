@@ -65,7 +65,8 @@ vim.keymap.set("v", "<C-Right>", "e", { noremap = true, desc = "C-Arrow move rig
 vim.keymap.set("n", "<C-Left>", "b", { noremap = true, desc = "C-Arrow move left" })
 vim.keymap.set("v", "<C-Left>", "b", { noremap = true, desc = "C-Arrow move left" })
 
-vim.lsp.enable({"lua_ls", "svelte-language-server" })
+vim.lsp.config("svelte-language-server", {})
+vim.lsp.enable({"lua_ls", "svelte" })
 
 vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, {})
 vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, {})
@@ -147,13 +148,14 @@ vim.keymap.set("n", "-", "<cmd>Oil<CR>", {})
 require("mini.extra").setup({})
 require("mini.pick").setup({})
 vim.keymap.set("n", "<space><space>", "<cmd>Pick resume<CR>", {}) -- TODO: defult to Pick files
-vim.keymap.set("n", "<space>f", "<cmd>Pick files<CR>", {}) 
+vim.keymap.set("n", "<space>f", "<cmd>Pick files<CR>", {})
+vim.keymap.set("n", "<space>p", "<cmd>Pick files<CR>", {})
 vim.keymap.set("n", "<space>o", "<cmd>Pick oldfiles<CR>", {})
 vim.keymap.set("n", "<space>g", "<cmd>Pick grep_live<CR>", {})
 vim.keymap.set("n", "z=", "<cmd>Pick spellsuggest<CR>", {})
 
 require("mini.pairs").setup({})
-require("mini.notify").setup({})
+-- require("mini.notify").setup({})
 
 
 require("harpoon").setup({
@@ -269,7 +271,7 @@ end)
 require("nvim-treesitter").setup({})
 
 require("nvim-treesitter.configs").setup({
-    ensure_installed = {"rust", "lua"},
+    ensure_installed = {"rust", "lua", "svelte"},
     highlight = {
         enable = true,
     },

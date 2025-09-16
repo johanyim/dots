@@ -88,7 +88,7 @@ style = "Beam"
 TERM = "alacritty-direct"
 
 [font]
-size = 10
+size = 13
 
 
 [font.glyph_offset]
