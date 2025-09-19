@@ -121,7 +121,7 @@ if [[ $TERM != "dumb" ]]; then
   eval "$(starship init zsh)"
 fi
 
-eval "$(direnv hook zsh)"
+# eval "$(direnv hook zsh)"
 
 alias -- cd=z
 alias -- grep=rg
