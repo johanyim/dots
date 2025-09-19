@@ -221,7 +221,7 @@ layout {
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "waybar"
 spawn-at-startup "mako"
-spawn-sh-at-startup "swaybg -m fill -i '/home/johan/.config/hypr/wallpapers/pixel-galaxy-darkened.png'" 
+spawn-sh-at-startup "swaybg -m fill -i \"$HOME/.config/wallpapers/pixel-galaxy-darkened.png\"" 
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
