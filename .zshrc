@@ -50,7 +50,7 @@ bindkey "^[[1;5D" backward-word
 
 # ==== vi mode ====
 
-source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+# source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 ZVM_VI_HIGHLIGHT_FOREGROUND=black             
 ZVM_VI_HIGHLIGHT_BACKGROUND=white
 ZVM_VI_HIGHLIGHT_EXTRASTYLE=bold    
@@ -127,4 +127,4 @@ alias -- cd=z
 alias -- grep=rg
 alias -- ls='eza -al'
 alias -- t='tmux a || tmux new'
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
