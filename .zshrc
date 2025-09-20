@@ -16,6 +16,7 @@ mkdir -p "$(dirname "$HISTFILE")"
 export EDITOR="nvim"
 export VISUAL="nvim"
 export MANPAGER="nvim +Man!"
+export PATH="$HOME/.local/bin:$PATH"
 
 
 # ==== OPTIONS ====
