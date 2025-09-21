@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+org="bgautomotive"
+
+repo=$(gh repo list $org | awk '{ print $1 }' | fuzzel --dmenu )
+
+
+if [[ -n "$repo" ]]; then 
+
+
+    path="$(echo $repo | cut -d/ -f 2)"
+    notify-send "Cloned: $repo";
+    notify-send "Path: $path";
+
+    alacritty --working-directory $HOME/code/ --hold -e zsh -c "git clone git@github.com:$repo.git; cd $path ; zsh"
+fi 

@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+colors=$HOME/.local/bin/colors/colors
+
+declare -A color_dict=()
+
+color_list=$(cat $colors  | awk -F'[][\"]' '/\[/{ print $1 ":" $2 ":" $4 }')
+
+for c in ${color_list}; do
+    # catppuccin crust #11111b
+    # inter-field-separator
+    IFS=: read -r f1 f2 f3 <<< "$c"
+
+    # color_dict["catppuccincrust"]=#11111b
+    color_dict["$f1$f2"]="$f3"
+done
+
+ICON_PREFIX=$(echo "\0icon\x1f$HOME/.local/bin/colors/")
+
+selection=$(awk -F'[][]' -v prefix="$ICON_PREFIX" '
+/\[/ {
+    file = $1 "-" $2 ".svg"
+    icon = prefix file
+    printf "%s:%s%s\n", $1, $2, icon
+}' $colors | fuzzel  --dmenu )
+
+group=${selection%:*}
+key=${selection#*:}
+
+color="${color_dict["$group$key"]}"
+
+echo $color
+
+if [[ -n "$color" ]]; then
+    notify-send "$selection" "$color\n<span foreground='#FFFFFF'>█</span><span foreground='$color'> ░▒▓█</span><span foreground='#FFFFFF'>█</span>"
+    wl-copy "$color"
+
+    # if file-descriptor 1 is open = test if run from term
+    # https://unix.stackexchange.com/a/162843
+    # if not, paste it out
+    if [[ ! -t 1 ]]; then 
+        wtype $color
+    fi
+fi
+
+exit 0
