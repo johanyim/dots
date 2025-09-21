@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# all lines with a '[' are assumed to be colors
+list=$(awk -F"[][\"]" '/\[/{
+system("echo \"<svg width=\\\"128\\\" height=\\\"128\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"> \n \
+  <rect width=\\\"128\\\" height=\\\"128\\\" fill=\\\"" $4 "\\\" /> \n \
+</svg>\" > \"" $1 "-" $2 ".svg\"")
+}' ./colors  )
+
+
+# echo $list | sed -e 's/^\(.*\);\(.*\);\(.*\)/\1/' ;
+# echo $list | sed -e 's/^\(.*\);\(.*\);\(.*\)/\2/' ;
+# echo $list | sed -e 's/^\(.*\);\(.*\);\(.*\)/\3/' ;
+
+
+echo "$list"
+
