@@ -66,7 +66,9 @@ vim.keymap.set("n", "<C-Left>", "b", { noremap = true, desc = "C-Arrow move left
 vim.keymap.set("v", "<C-Left>", "b", { noremap = true, desc = "C-Arrow move left" })
 
 vim.lsp.config("svelte-language-server", {})
-vim.lsp.enable({"lua_ls", "svelte" })
+vim.lsp.config("bash-language-server", {})
+vim.lsp.config("beautysh", {})
+vim.lsp.enable({"lua_ls", "svelte", "bashls", "beautysh" })
 
 vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, {})
 vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, {})
@@ -109,6 +111,11 @@ require("catppuccin").setup({
                 RenderMarkdownTableRow = { fg = colors.subtext1 },
 
                 StatusLine = { fg = colors.overlay0, bg = colors.none },
+                StatusLineNC = { fg = colors.surface0, bg = colors.none },
+                HarpoonWindow = { bg = colors.none, fg=colors.text },
+
+
+
             }
         end,
     },
@@ -130,6 +137,31 @@ require("catppuccin").setup({
     },
 })
 
+
+local function branch_name()
+	local branch = io.popen("git rev-parse --abbrev-ref HEAD 2> /dev/null")
+	if branch then
+		local name = branch:read("*l")
+		branch:close()
+		if name then
+			return "[".. name .. "]"
+		else
+			return ""
+		end
+	end
+end
+
+
+vim.o.statusline = table.concat({
+    branch_name(),
+    ' %F',
+    '%r',
+    '%m',
+    '%=', -- separator
+    '%{&filetype}',
+    ' %2p%%',
+    ' %3l:%-2c'
+}, '')
 
 vim.cmd[[colorscheme catppuccin-mocha]]
 
@@ -186,6 +218,12 @@ vim.keymap.set("n", "<C-K>", harpoon_ui.nav_prev)
 vim.keymap.set("n", "<C-L>", harpoon_ui.toggle_quick_menu)
 
 
+require("colorizer").setup({
+    user_default_options = {
+        tailwind = true,
+    }
+})
+
 require("todo-comments").setup({
     keywords = {
         TODO = { icon = " ", color = "#f2cdcd"},
@@ -208,11 +246,52 @@ require("todo-comments").setup({
     highlight = {multiline = true}
 })
 
-require("colorizer").setup({
-    user_default_options = {
-        tailwind = true,
-    }
-})
+
+local light_colors = {
+    rosewater = "#f5e0dc",
+    flamingo = "#f2cdcd",
+    pink = "#f5c2e7",
+    mauve = "#cba6f7",
+    red = "#f38ba8",
+    maroon = "#eba0ac",
+    peach = "#fab387",
+    yellow = "#f9e2af",
+    green = "#a6e3a1",
+    teal = "#94e2d5",
+    sky = "#89dceb",
+    sapphire = "#74c7ec",
+    blue = "#89b4fa",
+    lavender = "#b4befe",
+    text = "#cdd6f4",
+    subtext1 = "#bac2de",
+    subtext0 = "#a6adc8",
+    overlay2 = "#9399b2",
+    overlay1 = "#7f849c",
+}
+
+local dark_colors =  {
+    overlay0 = "#6c7086",
+    surface2 = "#585b70",
+    surface1 = "#45475a",
+    surface0 = "#313244",
+    base = "#1e1e2e",
+    mantle = "#181825",
+    crust = "#11111b",
+};
+
+for name, hex in pairs(light_colors) do
+    local group = "Catppuccin_" .. name
+    vim.cmd(string.format("highlight %s guibg=%s guifg=#000000", group, hex))
+    vim.fn.matchadd(group, "\\<" .. name .. "\\>")
+end
+
+for name, hex in pairs(dark_colors) do
+    local group = "Catppuccin_" .. name
+    vim.cmd(string.format("highlight %s guibg=%s guifg=#FFFFFF", group, hex))
+    vim.fn.matchadd(group, "\\<" .. name .. "\\>")
+end
+
+
 
 -- RUST
 vim.g.rustfmt_autosave = 1
