@@ -35,6 +35,11 @@ output "DP-1" {
     position x=1280 y=0
 }
 
+
+environment {
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+}
+
 layout {
     background-color "#11111b"
     gaps 8
