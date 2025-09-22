@@ -181,7 +181,7 @@ binds {
     Mod+Shift+A { spawn-sh "firefox --private-window"; }
     Mod+S hotkey-overlay-title="Pick a color" { spawn-sh "$HOME/.local/bin/list-colors"; }
 
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "swaylock"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
