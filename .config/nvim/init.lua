@@ -349,7 +349,6 @@ vim.pack.add({
     { src = "https://github.com/L3MON4D3/LuaSnip.git"},
     -- dependencies "rafamadriz/friendly-snippets" },
     { src = "https://github.com/saadparwaiz1/cmp_luasnip.git" },
-    { src = "https://github.com/neovim/nvim-lspconfig.git" },
     { src = "https://github.com/hrsh7th/cmp-nvim-lsp.git" },
     { src = "https://github.com/hrsh7th/cmp-buffer.git" },
     { src = "https://github.com/hrsh7th/cmp-path.git" },

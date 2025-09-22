@@ -128,4 +128,6 @@ alias -- cd=z
 alias -- grep=rg
 alias -- ls='eza -al'
 alias -- t='tmux a || tmux new'
+alias -- svim='sudo -E nvim'
+
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

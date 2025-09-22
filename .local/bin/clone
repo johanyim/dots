@@ -4,9 +4,7 @@ org="bgautomotive"
 
 repo=$(gh repo list -L 1000 $org | awk '{ print $1 }' | fuzzel --dmenu )
 
-
 if [[ -n "$repo" ]]; then 
-
 
     path="$(echo $repo | cut -d/ -f 2)"
     notify-send "Cloned: $repo";
