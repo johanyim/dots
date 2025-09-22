@@ -131,30 +131,14 @@ require("catppuccin").setup({
         -- removes some of the stupid colors on rust 
         semantic_tokens = false,
         nvim_surround = true,
-
-
-
     },
 })
 
 
-local function branch_name()
-	local branch = io.popen("git rev-parse --abbrev-ref HEAD 2> /dev/null")
-	if branch then
-		local name = branch:read("*l")
-		branch:close()
-		if name then
-			return "[".. name .. "]"
-		else
-			return ""
-		end
-	end
-end
-
 
 vim.o.statusline = table.concat({
-    branch_name(),
-    ' %F',
+    -- branch_name(),
+    '%F',
     '%r',
     '%m',
     '%=', -- separator
