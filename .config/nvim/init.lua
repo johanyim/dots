@@ -65,10 +65,15 @@ vim.keymap.set("v", "<C-Right>", "e", { noremap = true, desc = "C-Arrow move rig
 vim.keymap.set("n", "<C-Left>", "b", { noremap = true, desc = "C-Arrow move left" })
 vim.keymap.set("v", "<C-Left>", "b", { noremap = true, desc = "C-Arrow move left" })
 
+vim.lsp.enable({"lua_ls", "svelte", "bashls", "beautysh", "tinymist" })
 vim.lsp.config("svelte-language-server", {})
 vim.lsp.config("bash-language-server", {})
 vim.lsp.config("beautysh", {})
-vim.lsp.enable({"lua_ls", "svelte", "bashls", "beautysh" })
+vim.lsp.config("tinymist", {})
+
+
+
+
 
 vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, {})
 vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, {})
