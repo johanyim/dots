@@ -132,13 +132,21 @@ window-rule {
     open-floating true
 }
 
-// Open the Firefox at 
 window-rule {
     match app-id=r#"firefox"#
     default-column-width { 
         proportion 0.66667
     }
 }
+
+// Open the Firefox at 
+window-rule {
+    match app-id=r#"remmina"#
+    default-column-width { 
+        proportion 0.66667 
+    }
+}
+
 
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
@@ -180,6 +188,7 @@ binds {
     Mod+A hotkey-overlay-title="Spawn a browser window" { spawn "firefox"; }
     Mod+Shift+A { spawn-sh "firefox --private-window"; }
     Mod+S hotkey-overlay-title="Pick a color" { spawn-sh "$HOME/.local/bin/list-colors"; }
+    Mod+Shift+M { spawn-sh "firefox --new-window outlook.office.com ; sleep 0.1 ; firefox teams.microsoft.com"; }
 
     Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "swaylock"; }
 

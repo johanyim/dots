@@ -2,13 +2,12 @@
 
 org="bgautomotive"
 
-repo=$(gh repo list -L 1000 $org | awk '{ print $1 }' | fuzzel --dmenu )
+repo=$(gh repo list -L 1000 $org | awk '{ print $1 }' | fuzzel -w 100 --dmenu )
 
 if [[ -n "$repo" ]]; then 
-
     path="$(echo $repo | cut -d/ -f 2)"
     notify-send "Cloned: $repo";
-    notify-send "Path: $path";
+    # notify-send "Path: $path";
 
-    alacritty --working-directory $HOME/code/ --hold -e zsh -c "git clone git@github.com:$repo.git; cd $path ; zsh"
+    alacritty --working-directory $HOME/code/ --hold -e zsh -c "git clone git@github.com:$repo.git; cd $path ; zsh "
 fi 

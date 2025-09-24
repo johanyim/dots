@@ -19,6 +19,7 @@ export MANPAGER="nvim +Man!"
 export PATH="$PATH:$HOME/.local/bin"
 
 
+
 # ==== OPTIONS ====
 
 
@@ -124,10 +125,12 @@ fi
 
 # eval "$(direnv hook zsh)"
 
-alias -- cd=z
-alias -- grep=rg
-alias -- ls='eza -al'
-alias -- t='tmux a || tmux new'
-alias -- svim='sudo -E nvim'
+alias cd=z
+alias grep=rg
+alias ls='eza -al'
+alias t='tmux a || tmux new'
+alias svim='sudo -E nvim'
+
+alias gpom="git add . ; git commit --allow-empty -m '' ; git push origin main"
 
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
