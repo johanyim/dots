@@ -110,6 +110,11 @@ eval "$(zoxide init zsh)"
 source <(fzf --zsh)
 
 
+# completions for niri cli
+eval "$(niri completions zsh)"
+
+
+
 function yy() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
   yazi "$@" --cwd-file="$tmp"
@@ -133,4 +138,10 @@ alias svim='sudo -E nvim'
 
 alias gpom="git add . ; git commit --allow-empty -m '' ; git push origin main"
 
+# quickly get to the bga applications folder
+export APPS="/home/user/windows/Shared/Business Intelligence/!Applications"
+alias apps="cd $APPS"
+
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+source /home/user/.config/broot/launcher/bash/br

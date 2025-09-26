@@ -139,13 +139,23 @@ window-rule {
     }
 }
 
-// Open the Firefox at 
+// Open remoet desktop
 window-rule {
     match app-id=r#"remmina"#
     default-column-width { 
         proportion 0.66667 
     }
 }
+
+// Open the Tauri webviews
+window-rule {
+    match app-id=r#"bga_app"# // default tauri application id
+    open-on-output "HDMI-A-3" 
+    default-column-width { 
+        proportion 1.0
+    }
+}
+
 
 
 // Example: block out two password managers from screen capture.

@@ -10,16 +10,28 @@ TARGET_ARCHITECTURE="x86_64-pc-windows-msvc"
 
 OUTPUT_DIR="/home/user/windows/Shared/Business Intelligence/!Applications/$TITLE"
 
+echo "Creating the output directory (if it doesn't exist)"
 sudo mkdir -p "$OUTPUT_DIR"
 sudo mkdir -p "$OUTPUT_DIR/Archive"
+
+if [[ $? -ne 0 ]]; then 
+    echo "Failed to create target directories"
+    exit $?
+fi
+
+
+echo "Building tauri application"
+$TAURI build --runner cargo-xwin --target x86_64-pc-windows-msvc 
+
+if [[ $? -ne 0 ]]; then 
+    echo "Build failed"
+    exit $?
+fi
+echo "Build was a success"
+
+
+echo "Moving previous versions to the Archive folder"
 sudo mv -f "$OUTPUT_DIR/*.exe" "$OUTPUT_DIR/Archive"
 
-$TAURI build --runner cargo-xwin --target x86_64-pc-windows-msvc
-
+echo "Tauri application is available at $OUTPUT_DIR"
 sudo cp ./src-tauri/target/$TARGET_ARCHITECTURE/release/bundle/nsis/*.exe "$OUTPUT_DIR"
-
-
-
-
-
-
