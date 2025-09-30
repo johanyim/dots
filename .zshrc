@@ -105,9 +105,6 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 
 
-eval "$(zoxide init zsh)"
-source <(fzf --zsh)
-
 
 function yy() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
@@ -117,6 +114,12 @@ function yy() {
   fi
   rm -f -- "$tmp"
 }
+
+# ==== COMPLETIONS ==== 
+
+eval $(bat --completion zsh)
+eval "$(zoxide init zsh)"
+source <(fzf --zsh)
 
 if [[ $TERM != "dumb" ]]; then
   eval "$(starship init zsh)"
@@ -128,4 +131,5 @@ alias -- cd=z
 alias -- grep=rg
 alias -- ls='eza -al'
 alias -- t='tmux a || tmux new'
+alias -- ip='ip --color=auto'
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
