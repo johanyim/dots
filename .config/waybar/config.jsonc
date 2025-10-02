@@ -206,6 +206,7 @@
     },
     "niri/workspaces": {
         "format": "{value}",
+        "disable-click": true,
         "persistent-workspaces": {
             "1": [ ],
             "2": [ ],

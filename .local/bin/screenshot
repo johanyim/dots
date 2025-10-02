@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+
+area=$(slurp)
+
+if [ $? -ne 0 ]; then
+    notify-send "Screenshot cancelled or failed"
+    exit 1
+fi
+
+name="$(date +'%Y-%m-%d_%H-%M-%S').png"
+
+mkdir -p "$HOME/Pictures"
+grim -g "$area" "$HOME/Pictures/$name" | wl-copy
+
+if [ $? -eq 0 ]; then
+    notify-send "Screenshot copied and saved to $name"
+else
+    notify-send "Screenshot failed"
+fi
+
+

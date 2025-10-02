@@ -200,6 +200,11 @@ binds {
     Mod+S hotkey-overlay-title="Pick a color" { spawn-sh "$HOME/.local/bin/list-colors"; }
     Mod+Shift+M { spawn-sh "firefox --new-window outlook.office.com ; sleep 0.1 ; firefox teams.microsoft.com"; }
 
+    // Screenshot
+    Mod+Shift+S { spawn-sh "$HOME/.local/bin/screenshot"; }
+    Mod+Ctrl+Shift+S { spawn-sh "$HOME/.local/bin/screenshot-edit"; }
+
+
     Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "swaylock"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
