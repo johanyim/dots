@@ -65,10 +65,35 @@ vim.keymap.set("v", "<C-Right>", "e", { noremap = true, desc = "C-Arrow move rig
 vim.keymap.set("n", "<C-Left>", "b", { noremap = true, desc = "C-Arrow move left" })
 vim.keymap.set("v", "<C-Left>", "b", { noremap = true, desc = "C-Arrow move left" })
 
-vim.lsp.config("svelte-language-server", {})
-vim.lsp.config("bash-language-server", {})
-vim.lsp.config("beautysh", {})
-vim.lsp.enable({"lua_ls", "svelte", "bashls", "beautysh" })
+require("mason").setup({ })
+local servers = {
+  lua_ls = {},
+  svelte = {},
+  bashls = {},
+  beautysh = {},
+  awk_ls = {},
+  tinymist = {
+    cmd = { "tinymist" },
+    settings = {
+      filetypes = { "typst" },
+      formatterMode = "typstyle",
+    },
+  },
+}
+
+for server, config in pairs(servers) do
+  vim.lsp.enable(server)
+  if next(config) ~= nil then -- only configure if config is non-empty
+    vim.lsp.config(server, config)
+  end
+end
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.typ",
+  callback = function()
+    vim.lsp.buf.format { async = false }
+  end,
+})
 
 vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, {})
 vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, {})
@@ -304,7 +329,6 @@ require("rust-tools").setup({
         end,
     },
 })
-require("mason").setup({ })
 require("ferris").setup({ })
 require("lsp_lines").setup({ })
 local diagnostics_active = true
@@ -349,6 +373,7 @@ vim.pack.add({
     { src = "https://github.com/L3MON4D3/LuaSnip.git"},
     -- dependencies "rafamadriz/friendly-snippets" },
     { src = "https://github.com/saadparwaiz1/cmp_luasnip.git" },
+    { src = "https://github.com/neovim/nvim-lspconfig.git" },
     { src = "https://github.com/hrsh7th/cmp-nvim-lsp.git" },
     { src = "https://github.com/hrsh7th/cmp-buffer.git" },
     { src = "https://github.com/hrsh7th/cmp-path.git" },
@@ -399,3 +424,4 @@ cmp.setup({
         ghost_text = { hl_group = "GhostText" },
     },
 })
+
