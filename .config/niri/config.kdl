@@ -19,21 +19,35 @@ input {
 
 
 output "HDMI-A-2" {
+    backdrop-color "#181825"
     mode "1920x1080@60"
     position x=0 y=0
 }
 
+// Laptop monitor
 output "eDP-1" {
+    backdrop-color "#181825"
     mode "1920x1080@60"
     position x=0 y=0
 }
 
+// Desktop left monitor
 output "DP-1" {
     transform "normal"
+    mode "1920x1080@60"
     backdrop-color "#181825"
-    scale 1.0
-    position x=1280 y=0
+    position x=0 y=0
 }
+
+
+// Desktop right monitor
+output "HDMI-A-3" {
+    backdrop-color "#181825"
+    mode "1920x1080@60"
+    position x=1920 y=0
+}
+
+
 
 
 environment {

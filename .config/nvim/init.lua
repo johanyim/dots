@@ -67,32 +67,40 @@ vim.keymap.set("v", "<C-Left>", "b", { noremap = true, desc = "C-Arrow move left
 
 require("mason").setup({ })
 local servers = {
-  lua_ls = {},
-  svelte = {},
-  bashls = {},
-  beautysh = {},
-  awk_ls = {},
-  tinymist = {
-    cmd = { "tinymist" },
-    settings = {
-      filetypes = { "typst" },
-      formatterMode = "typstyle",
+    lua_ls = {},
+    svelte = {},
+    emmet_language_server = {
+        settings = {
+            filetypes = { "javascript" }
+
+
+        }
+
     },
-  },
+    bashls = {},
+    beautysh = {},
+    awk_ls = {},
+    tinymist = {
+        cmd = { "tinymist" },
+        settings = {
+            filetypes = { "typst" },
+            formatterMode = "typstyle",
+        },
+    },
 }
 
 for server, config in pairs(servers) do
-  vim.lsp.enable(server)
-  if next(config) ~= nil then -- only configure if config is non-empty
-    vim.lsp.config(server, config)
-  end
+    vim.lsp.enable(server)
+    if next(config) ~= nil then -- only configure if config is non-empty
+        vim.lsp.config(server, config)
+    end
 end
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.typ",
-  callback = function()
-    vim.lsp.buf.format { async = false }
-  end,
+    pattern = "*.typ",
+    callback = function()
+        vim.lsp.buf.format { async = false }
+    end,
 })
 
 vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, {})
@@ -388,8 +396,8 @@ cmp.setup({
         { name = "nvim_lsp" },
         { name = "path" },
     }, {
-        { name = "buffer" },
-    }),
+            { name = "buffer" },
+        }),
     window = {
         -- completion = cmp.config.window.bordered(),
         -- documentation = cmp.config.window.bordered(),
