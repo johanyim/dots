@@ -30,9 +30,6 @@ vim.opt.termguicolors = true
 
 vim.opt.winborder = "rounded"
 
-
-
-
 vim.pack.add({
     { src = "https://github.com/kylechui/nvim-surround.git" },
     {
@@ -66,6 +63,8 @@ vim.keymap.set("n", "<C-Right>", "e", { noremap = true, desc = "C-Arrow move rig
 vim.keymap.set("v", "<C-Right>", "e", { noremap = true, desc = "C-Arrow move right" })
 vim.keymap.set("n", "<C-Left>", "b", { noremap = true, desc = "C-Arrow move left" })
 vim.keymap.set("v", "<C-Left>", "b", { noremap = true, desc = "C-Arrow move left" })
+vim.keymap.set("n", "L", function () vim.diagnostic.open_float() end, { noremap = true, desc = "Open diagnostic" })
+
 
 require("mason").setup({ })
 local servers = {
@@ -82,7 +81,6 @@ local servers = {
     },
   },
 }
-
 for server, config in pairs(servers) do
   vim.lsp.enable(server)
   if next(config) ~= nil then -- only configure if config is non-empty
@@ -109,9 +107,6 @@ vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 require("nvim-surround").setup({
     move_cursor = false,
 })
-
-
-
 
 require("catppuccin").setup({
     no_italic = true,
@@ -163,16 +158,16 @@ require("catppuccin").setup({
 
 
 
-vim.o.statusline = table.concat({
-    -- branch_name(),
-    '%F',
-    '%r',
-    '%m',
-    '%=', -- separator
-    '%{&filetype}',
-    ' %2p%%',
-    ' %3l:%-2c'
-}, '')
+-- vim.o.statusline = table.concat({
+--     -- branch_name(),
+--     '%F',
+--     '%r',
+--     '%m',
+--     '%=', -- separator
+--     '%{&filetype}',
+--     ' %2p%%',
+--     ' %3l:%-2c'
+-- }, '')
 
 vim.cmd[[colorscheme catppuccin-mocha]]
 
@@ -197,6 +192,9 @@ vim.keymap.set("n", "<space>g", "<cmd>Pick grep_live<CR>", {})
 vim.keymap.set("n", "z=", "<cmd>Pick spellsuggest<CR>", {})
 
 require("mini.pairs").setup({})
+require("mini.git").setup({})
+require("mini.diff").setup({})
+require("mini.statusline").setup({})
 -- require("mini.notify").setup({})
 
 
