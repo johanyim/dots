@@ -167,6 +167,11 @@ binds {
     Mod+Shift+A { spawn-sh "firefox --private-window"; }
     Mod+S hotkey-overlay-title="Pick a color" { spawn-sh "$HOME/.local/bin/list-colors"; }
 
+    
+    // Screenshot
+    Mod+Shift+S { spawn-sh "$HOME/.local/bin/screenshot"; }
+    Mod+Ctrl+Shift+S { spawn-sh "$HOME/.local/bin/screenshot-edit"; }
+
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
     // For example, this is a standard bind to toggle the screen reader (orca).

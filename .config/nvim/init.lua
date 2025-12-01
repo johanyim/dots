@@ -31,6 +31,8 @@ vim.opt.termguicolors = true
 vim.opt.winborder = "rounded"
 
 
+
+
 vim.pack.add({
     { src = "https://github.com/kylechui/nvim-surround.git" },
     {
@@ -239,6 +241,7 @@ require("todo-comments").setup({
         NOTE = { icon = " ", color = "#b4befe", alt = { "INFO", "DEBUG" } },
         WARN = { icon = " ", color = "#f9e2af", alt = { "WARNING" } },
         IDEA = { icon = "󰛨 ", color = "#fab387", alt = { "FUTURE" } },
+        SAFETY = { icon = " ", color = "#fab387" },
         ERROR ={ icon = " ", color = "#f38ba8", alt = {"BUG", "FIXME"} },
         STEP0 = { icon = "󰎡 ", color = "#b4befe", alt = { "0." } },
         STEP1 = { icon = "󰎤 ", color = "#b4befe", alt = { "1." } },
