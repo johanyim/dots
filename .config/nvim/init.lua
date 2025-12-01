@@ -157,17 +157,49 @@ require("catppuccin").setup({
 })
 
 
+function _G.DiagStatus()
+  local err  = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+  local warn = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+  local hint = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
+  local info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
 
--- vim.o.statusline = table.concat({
---     -- branch_name(),
---     '%F',
---     '%r',
---     '%m',
---     '%=', -- separator
---     '%{&filetype}',
---     ' %2p%%',
---     ' %3l:%-2c'
--- }, '')
+  return string.format("E%d|W%d|H%d|I%d", err, warn, hint, info)
+end
+
+
+function _G.BranchName()
+	local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
+	if branch ~= "" then
+		return branch
+	else
+		return ""
+	end
+end
+
+function _G.GetBranchName()
+    return vim.b.branch_name
+end
+
+
+
+vim.api.nvim_create_autocmd({"FileType", "BufEnter", "FocusGained"}, {
+	callback = function()
+		vim.b.branch_name = BranchName()
+	end
+})
+
+vim.o.statusline = table.concat({
+    -- branch_name(),
+    '%F', -- File name
+    '%r',
+    '%m ',
+    '|%{v:lua.GetBranchName()}|',
+    '%=', -- separator
+    '%{v:lua.DiagStatus()} ',
+    ' %{&filetype}',
+    ' %2p%%',
+    ' %3l:%-2c'
+}, '')
 
 vim.cmd[[colorscheme catppuccin-mocha]]
 
@@ -192,10 +224,9 @@ vim.keymap.set("n", "<space>g", "<cmd>Pick grep_live<CR>", {})
 vim.keymap.set("n", "z=", "<cmd>Pick spellsuggest<CR>", {})
 
 require("mini.pairs").setup({})
-require("mini.git").setup({})
-require("mini.diff").setup({})
-require("mini.statusline").setup({})
--- require("mini.notify").setup({})
+
+
+
 
 
 require("harpoon").setup({
