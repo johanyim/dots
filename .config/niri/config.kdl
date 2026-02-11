@@ -30,15 +30,14 @@ layout {
     gaps 8
     center-focused-column "never" // "on-overflow" | "always"
     preset-column-widths {
-        proportion 0.33333
+        proportion 0.35
         proportion 0.5
-        proportion 0.66667
-        // fixed 1920
+        proportion 0.65
     }
     // preset-window-heights { }
 
-    default-column-width {} // empty, the windows themselves will decide
-    // default-column-width { proportion 0.5; }
+    // default-column-width {} // empty, the windows themselves will decide
+    default-column-width { proportion 0.5; }
 
     focus-ring {
         off
@@ -121,9 +120,17 @@ window-rule {
 window-rule {
     match app-id=r#"firefox"#
     default-column-width { 
-        proportion 0.66667
+        proportion 0.5
     }
 }
+
+
+// for my gpu proramming endeavours
+window-rule {
+    match title=".*GPU.*"
+    open-floating true
+}
+
 
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
@@ -339,8 +346,12 @@ binds {
     // The following binds move the focused window in and out of a column.
     // If the window is alone, they will consume it into the nearby column to the side.
     // If the window is already in a column, they will expel it out.
-    Mod+BracketLeft  { consume-or-expel-window-left; }
-    Mod+BracketRight { consume-or-expel-window-right; }
+    // Mod+BracketLeft  { focus-monitor-left; }
+    // Mod+BracketRight { focus-monitor-right; }
+    Mod+BracketLeft  { focus-column-left; }
+    Mod+BracketRight { focus-column-right; }
+    Mod+Shift+BracketLeft  { move-window-to-monitor-left; }
+    Mod+Shift+BracketRight { move-window-to-monitor-right; }
 
     // Consume one window from the right to the bottom of the focused column.
     Mod+Comma  { consume-window-into-column; }
