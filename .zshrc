@@ -115,14 +115,14 @@ eval "$(niri completions zsh)"
 
 
 
-function yy() {
-  local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
-  yazi "$@" --cwd-file="$tmp"
-  if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-    builtin cd -- "$cwd"
-  fi
-  rm -f -- "$tmp"
-}
+# function yy() {
+#   local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
+#   yazi "$@" --cwd-file="$tmp"
+#   if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+#     builtin cd -- "$cwd"
+#   fi
+#   rm -f -- "$tmp"
+# }
 
 if [[ $TERM != "dumb" ]]; then
   eval "$(starship init zsh)"
@@ -138,9 +138,11 @@ alias svim='sudo -E nvim'
 
 alias gpom="git add . ; git commit --allow-empty -m '' ; git push origin main"
 
-# quickly get to the bga applications folder
+# quickly get to the !Applications folder
 export APPS="/home/user/windows/Shared/Business Intelligence/!Applications"
 alias apps="cd $APPS"
+alias yy='fc -ln -1  | wl-copy'
+
 
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 

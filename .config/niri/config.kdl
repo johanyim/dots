@@ -66,8 +66,9 @@ layout {
     }
     // preset-window-heights { }
 
-    default-column-width {} // empty, the windows themselves will decide
-    // default-column-width { proportion 0.5; }
+    // default-column-width {} // empty, the windows themselves will decide
+    default-column-width { proportion 0.5; }
+
 
     focus-ring {
         off
@@ -149,15 +150,7 @@ window-rule {
 window-rule {
     match app-id=r#"firefox"#
     default-column-width { 
-        proportion 0.66667
-    }
-}
-
-// Open remoet desktop
-window-rule {
-    match app-id=r#"remmina"#
-    default-column-width { 
-        proportion 0.66667 
+        proportion 1.0
     }
 }
 
@@ -209,10 +202,10 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Shift+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
     Mod+P hotkey-overlay-title="Run an Application: fuzzel" { spawn-sh "fuzzel -I"; }
-    Mod+A hotkey-overlay-title="Spawn a browser window" { spawn "firefox"; }
+    Mod+A hotkey-overlay-title="Spawn a browser window" { spawn-sh "firefox --new-tab"; }
     Mod+Shift+A { spawn-sh "firefox --private-window"; }
     Mod+S hotkey-overlay-title="Pick a color" { spawn-sh "$HOME/.local/bin/list-colors"; }
-    Mod+Shift+M { spawn-sh "firefox --new-window outlook.office.com ; sleep 0.1 ; firefox teams.microsoft.com"; }
+    Mod+Shift+M { spawn-sh "chromium --new-window outlook.office.com ;  chromium teams.microsoft.com ; chromium www.notion.so ; chromium https://bga.youtrack.cloud/search/All%20tickets-4"; }
 
     // Screenshot
     Mod+Shift+S { spawn-sh "$HOME/.local/bin/screenshot"; }
@@ -313,8 +306,8 @@ binds {
 
     Mod+BracketLeft       { focus-monitor-left; }
     Mod+BracketRight       { focus-monitor-right; }
-    Mod+Shift+BracketLeft       { move-workspace-to-monitor-left; }
-    Mod+Shift+BracketRight       { move-workspace-to-monitor-right; }
+    Mod+Shift+BracketLeft       { move-window-to-monitor-left; }
+    Mod+Shift+BracketRight       { move-window-to-monitor-right; }
     Mod+Ctrl+Shift+BracketLeft       { move-workspace-to-monitor-left; }
     Mod+Ctrl+Shift+BracketRight       { move-workspace-to-monitor-right; }
 

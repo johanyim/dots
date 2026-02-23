@@ -69,11 +69,10 @@ require("mason").setup({ })
 local servers = {
     lua_ls = {},
     svelte = {},
+    ts_ls = {},
     emmet_language_server = {
         settings = {
             filetypes = { "javascript" }
-
-
         }
 
     },
@@ -87,7 +86,16 @@ local servers = {
             formatterMode = "typstyle",
         },
     },
+    ruff = {},
+    pyright = {},
+    clangd = {
+
+
+    },
 }
+
+
+vim.lsp.start_client(vim.lsp.config.clangd.deafult_config)
 
 for server, config in pairs(servers) do
     vim.lsp.enable(server)
@@ -96,10 +104,23 @@ for server, config in pairs(servers) do
     end
 end
 
+-- typst formatting
 vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = "*.typ",
     callback = function()
         vim.lsp.buf.format { async = false }
+    end,
+})
+
+
+-- c, cpp formatting
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = { "*.c", "*.cpp", "*.h", "*.hpp" },
+    callback = function(args)
+        vim.lsp.buf.format({
+            bufnr = args.buf,
+            timeout_ms = 2000,
+        })
     end,
 })
 
@@ -381,7 +402,7 @@ vim.pack.add({
     { src = "https://github.com/L3MON4D3/LuaSnip.git"},
     -- dependencies "rafamadriz/friendly-snippets" },
     { src = "https://github.com/saadparwaiz1/cmp_luasnip.git" },
-    { src = "https://github.com/neovim/nvim-lspconfig.git" },
+    -- { src = "https://github.com/neovim/nvim-lspconfig.git" },
     { src = "https://github.com/hrsh7th/cmp-nvim-lsp.git" },
     { src = "https://github.com/hrsh7th/cmp-buffer.git" },
     { src = "https://github.com/hrsh7th/cmp-path.git" },

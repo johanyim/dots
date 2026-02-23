@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+
+AUTOMATION_DIR=/home/user/code/automations
+AUTOMATION_BINS="$AUTOMATION_DIR/bin"
+CARGO=/home/user/.cargo/bin/cargo
+
+COMMIT_HASH=$(git log -1 --pretty=format:"%H")
+DEST=${PWD##*/}
+
+
+
+$CARGO build --release 
+
+
+mkdir -p "$AUTOMATION_BINS/$DEST"
+
+find target/release -maxdepth 1 -perm -111 -type f -printf "%f\n" |\
+while read -r binary; do 
+    cp ${PWD}/target/release/$binary "$AUTOMATION_BINS/$DEST/$binary"
+    echo "[DEPLOYED]: '$DEST' was deployed on $(date --i=s)" >> "$AUTOMATION_BINS/$DEST/logs-$binary.txt"
+done 
+
+# copy static files
+cp email.toml "$AUTOMATION_BINS/$DEST/email.toml" > /dev/null 2>&1
+
+# "data/" is the directory with all assets to be retained after transfer
+rm -rf "$AUTOMATION_BINS/$DEST/data"
+cp -r data "$AUTOMATION_BINS/$DEST/data" > /dev/null 2>&1
+
+# copy commit hash
+echo $COMMIT_HASH > "$AUTOMATION_BINS/$DEST/COMMIT_HASH"
+
+
+echo -e "[${PWD##*/}] and related files have been deployed to the automations directory"
+

@@ -1,3 +1,9 @@
 [build]
 rustc-wrapper = "/home/user/.cargo/bin/sccache"
+# rustflags = ["-C", "force-frame-pointers=yes"]
+
+[profile.profiling]
+inherits = "release"
+debug = true
+strip = false
 

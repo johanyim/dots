@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+if [[ -z "$1" ]]; then 
+    echo "Must provide a script name"; 
+    exit 1
+fi 
+
+
+name=$1
+
+touch $name
+chmod +x $name
+echo '#!/usr/bin/env bash' > $name
+
+$EDITOR $name
