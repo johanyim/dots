@@ -7,7 +7,7 @@
 
 # wget johanyim.com/setup
 
-sudo apt install git neovim zsh zsh-syntax-highlighting ssh openssh-server man-db tmux stow openssl pkgconf alacritty brightnessctl libnotify-bin clang npm unzip zoxide eza fonts-noto waybar starship fzf stow
+sudo apt install -y git neovim zsh zsh-syntax-highlighting ssh openssh-server man-db tmux stow openssl curl pkgconf alacritty brightnessctl libnotify-bin clang npm unzip fonts-noto waybar starship fzf stow
 
 # install rust (if it doesn't exist already)
 if ! [[ -x "$(command -v cargo)" ]]; then 
