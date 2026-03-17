@@ -1,4 +1,55 @@
 local vim = vim
+
+-- LSP servers
+local servers = {
+    lua_ls = {},
+    svelte = {},
+    bashls = {},
+    beautysh = {},
+    awk_ls = {},
+    tinymist = {
+        cmd = { "tinymist" },
+        settings = {
+            filetypes = { "typst" },
+            formatterMode = "typstyle",
+        },
+    },
+    wgsl_analyzer = {},
+    ruff ={},
+    pyright ={},
+    clangd ={},
+}
+
+
+-- typst formatting
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.typ",
+    callback = function()
+        vim.lsp.buf.format { async = false }
+    end,
+})
+
+
+-- c, cpp formatting
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = { "*.c", "*.cpp", "*.h", "*.hpp" },
+    callback = function(args)
+        vim.lsp.buf.format({
+            bufnr = args.buf,
+            timeout_ms = 2000,
+        })
+    end,
+})
+
+
+for server, config in pairs(servers) do
+    vim.lsp.enable(server)
+    if next(config) ~= nil then -- only configure if config is non-empty
+        vim.lsp.config(server, config)
+    end
+end
+
+-- config start
 local TAB_SIZE = 4
 local SCROLL_OFF = 4
 vim.opt.tabstop = TAB_SIZE
@@ -67,37 +118,6 @@ vim.keymap.set("n", "L", function () vim.diagnostic.open_float() end, { noremap 
 
 
 require("mason").setup({ })
-local servers = {
-  lua_ls = {},
-  svelte = {},
-  bashls = {},
-  beautysh = {},
-  awk_ls = {},
-  tinymist = {
-    cmd = { "tinymist" },
-    settings = {
-      filetypes = { "typst" },
-      formatterMode = "typstyle",
-    },
-  },
-  wgsl_analyzer = {
-
-
-  },
-}
-for server, config in pairs(servers) do
-    vim.lsp.enable(server)
-    if next(config) ~= nil then -- only configure if config is non-empty
-        vim.lsp.config(server, config)
-    end
-end
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.typ",
-  callback = function()
-    vim.lsp.buf.format { async = false }
-  end,
-})
 
 vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, {})
 vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, {})
@@ -162,22 +182,22 @@ require("catppuccin").setup({
 
 
 function _G.DiagStatus()
-  local err  = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
-  local warn = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
-  local hint = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
-  local info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+    local err  = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+    local warn = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+    local hint = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
+    local info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
 
-  return string.format("E%d|W%d|H%d|I%d", err, warn, hint, info)
+    return string.format("E%d|W%d|H%d|I%d", err, warn, hint, info)
 end
 
 
 function _G.BranchName()
-	local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
-	if branch ~= "" then
-		return branch
-	else
-		return ""
-	end
+    local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
+    if branch ~= "" then
+        return branch
+    else
+        return ""
+    end
 end
 
 function _G.GetBranchName()
@@ -187,9 +207,9 @@ end
 
 
 vim.api.nvim_create_autocmd({"FileType", "BufEnter", "FocusGained"}, {
-	callback = function()
-		vim.b.branch_name = BranchName()
-	end
+    callback = function()
+        vim.b.branch_name = BranchName()
+    end
 })
 
 vim.o.statusline = table.concat({
@@ -424,8 +444,8 @@ cmp.setup({
         { name = "nvim_lsp" },
         { name = "path" },
     }, {
-        { name = "buffer" },
-    }),
+            { name = "buffer" },
+        }),
     window = {
         -- completion = cmp.config.window.bordered(),
         -- documentation = cmp.config.window.bordered(),

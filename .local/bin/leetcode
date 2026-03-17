@@ -1,0 +1,63 @@
+#!/usr/bin/env bash 
+
+DIR="$HOME/code/leetcode/n$1"
+
+if [ ! -d "$DIR" ]; then
+    # reset things
+    cd $HOME/code/leetcode ;
+    /usr/bin/env cargo new "n$1";
+    echo -e 'impl Solution {
+    fn placeholder_function(things: Vec<i32>) {
+        unimplemented!()
+    }
+}
+
+mod utils;
+#[allow(unused)]
+fn main() {
+    use utils::*;
+    let res = Solution::placeholder_function(vec![]);
+    println!("res = {res:?}");
+    assert_eq!(res, svec![]);
+}
+struct Solution;
+' > "$DIR/src/main.rs"
+    echo -e '#[macro_export]
+macro_rules! svec {
+    () => {Vec::<String>::new()};
+     ($str:expr; $n:expr) => { vec![$str.to_string(); $n] };
+    ($($str:expr),+ $(,)?) => {
+        vec![$($str.to_string()),+]
+
+    };
+}
+
+#[test]
+fn macro_expands() {
+    assert_eq!(svec!["1", "2"], vec!["1".to_string(), "2".to_string()]);
+    assert_eq!(svec!["1"], vec!["2"]);
+}' > "$DIR/src/utils.rs"
+fi 
+
+cd "$DIR"
+
+echo "something";
+
+
+tmux has-session -t leetcode;
+if [[ "$?" -eq 0 ]]; then 
+    tmux new-window -t leetcode -n n$1; 
+else 
+    tmux new -s leetcode -n n$1 -d; 
+fi
+
+tmux send-keys -t leetcode:n$1.0 'nvim ./src/main.rs' C-m
+tmux split-window -h
+tmux send-keys -t leetcode:n$1.1 'RUSTFLAGS=-Awarnings cargo watch -cqx r' C-m
+# tmux select-window -t n$1
+# tmux split-window "cargo watch -x r" 
+tmux attach-session -t leetcode:n$1.0
+# tmux new-window -t "n$1"
+#
+
+$SHELL

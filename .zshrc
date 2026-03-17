@@ -106,14 +106,14 @@ bindkey -v '^?' backward-delete-char
 
 
 
-function yy() {
-  local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
-  yazi "$@" --cwd-file="$tmp"
-  if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-    builtin cd -- "$cwd"
-  fi
-  rm -f -- "$tmp"
-}
+# function yy() {
+#   local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
+#   yazi "$@" --cwd-file="$tmp"
+#   if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+#     builtin cd -- "$cwd"
+#   fi
+#   rm -f -- "$tmp"
+# }
 
 # ==== COMPLETIONS ==== 
 
@@ -127,9 +127,12 @@ fi
 
 eval "$(direnv hook zsh)"
 
+# ==== ALIASES ====
+
 alias -- cd=z
 alias -- grep=rg
 alias -- ls='eza -al'
 alias -- t='tmux a || tmux new'
 alias -- ip='ip --color=auto'
+alias open=xdg-open
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
