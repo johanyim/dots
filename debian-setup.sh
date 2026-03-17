@@ -43,13 +43,12 @@ fi
 
 
 # setup fonts
+mkdir -p ~/.local/share/fonts/
 curl -OL https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/DepartureMono.tar.xz
+tar -xvf DepartureMono.tar.xz -C ~/.local/share/fonts/
 curl -OL https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Noto.tar.xz
+tar -xvf Noto.tar.xz -C ~/.local/share/fonts/
 
-
-# unzip NotoSans.zip -d NotoSans
-# mkdir -p ~/.local/share/fonts
-# cp ./NotoSans/*.ttf ~/.local/share/fonts/
 fc-cache -fv
 
 
