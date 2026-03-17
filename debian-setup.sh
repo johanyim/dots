@@ -11,9 +11,11 @@ sudo apt install -y git neovim zsh zsh-syntax-highlighting ssh openssh-server ma
 
 # install rust (if it doesn't exist already)
 if ! [[ -x "$(command -v cargo)" ]]; then 
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 fi 
 
+CARGO=$HOME/.cargo/bin/cargo
+$CARGO install zoxide eza starship cargo-watch
 
 
 # docker kubernetes
@@ -53,14 +55,6 @@ fc-cache -fv
 
 
 
-# install rust (if it doesn't exist already)
-if ! [[ -x "$(command -v cargo)" ]]; then 
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-fi 
-
-
-
-
 # install mako
 
 # install bottom
@@ -68,7 +62,6 @@ fi
 # rofi-wayland 
 
 
-# install zoxide eza starship
 
 
 # install librewolf from backports
