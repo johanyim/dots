@@ -44,6 +44,7 @@ box#controls,
 box#connections,
 box#usage,
 box#state,
+#custom-uptime,
 #workspaces,
 #clock
 {
@@ -57,7 +58,7 @@ box#state,
 
 #cpu {
     letter-spacing: 4px;
-    min-width: 400px;
+    min-width: 320px;
 }
 
 /* box#life:hover, */
@@ -237,6 +238,7 @@ window#waybar {
 
 
 
+#custom-uptime,
 #clock  {
     color: @subtext0;
 }

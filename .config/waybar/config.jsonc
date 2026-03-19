@@ -22,6 +22,7 @@
     "modules-right": [
         "group/connections",
         "group/life",
+        "custom/uptime",
         "clock"
     ],
 
@@ -181,6 +182,11 @@
             "󰃟",
             "󰃠"
         ],
+    },
+    "custom/uptime": {
+        "exec": "t=$(cut -d'.' -f1 /proc/uptime); printf '%dd %02d:%02d\n' $((t/86400)) $(((t%86400)/3600)) $(((t%3600)/60))",
+        "interval": 60,
+        "format": "{}"
     },
 
     "clock": {
