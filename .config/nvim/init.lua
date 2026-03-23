@@ -48,8 +48,10 @@ vim.pack.add({
     { src = "https://github.com/NvChad/nvim-colorizer.lua" },
     { src = "https://github.com/mason-org/mason.nvim"},
     { src = "https://github.com/neovim/nvim-lspconfig.git"},
-    { src = "https://github.com/simrat39/rust-tools.nvim"},
-    { src = "https://github.com/vxpm/ferris.nvim"},
+    -- { src = "https://github.com/simrat39/rust-tools.nvim"},
+    -- { src = "https://github.com/vxpm/ferris.nvim"},
+    { src = "https://github.com/mrcjkb/rustaceanvim.git" },
+    { src = "https://github.com/chrisgrieser/nvim-lsp-endhints" },
     { src = "https://github.com/rust-lang/rust.vim"},
     { src = "https://git.sr.ht/~whynothugo/lsp_lines.nvim"},
     { src = "https://github.com/nvim-treesitter/nvim-treesitter.git"},
@@ -95,7 +97,6 @@ local servers = {
 }
 
 
-vim.lsp.start_client(vim.lsp.config.clangd.deafult_config)
 
 for server, config in pairs(servers) do
     vim.lsp.enable(server)
@@ -332,33 +333,88 @@ end
 
 
 -- RUST
+-- vim.g.rustfmt_command = 'rustfmt'
 vim.g.rustfmt_autosave = 1
-require("rust-tools").setup({
+vim.g.rustfmt_autosave_if_config_present = 1
+-- require("rust-tools").setup({
+--     tools = {
+--         inlay_hints = {
+--             auto = true,
+--             only_current_line = false,
+--             show_parameter_hints = true,
+--             parameter_hints_prefix = "<= ",
+--             other_hints_prefix = "-> ",
+--             max_len_align = false,
+--             max_len_align_padding = 1,
+--             right_align = false,
+--             right_align_padding = 3,
+--             highlight = "LspInlayHint",
+--         },
+--         hover_actions = {
+--             auto_focus = false,
+--         },
+--     },
+--     server = {
+--         on_attach = function(_, _)
+--             -- Info and documentation + Hover actions
+--             -- vim.lsp.inlay_hint.enable(false)
+--         end,
+--     },
+-- })
+
+vim.g.rustaceanvim = {
+    -- Plugin configuration
     tools = {
-        inlay_hints = {
-            auto = true,
-            only_current_line = false,
-            show_parameter_hints = true,
-            parameter_hints_prefix = "<= ",
-            other_hints_prefix = "-> ",
-            max_len_align = false,
-            max_len_align_padding = 1,
-            right_align = false,
-            right_align_padding = 3,
-            highlight = "LspInlayHint",
-        },
-        hover_actions = {
-            auto_focus = false,
-        },
     },
+    -- LSP configuration
     server = {
-        on_attach = function(_, _)
-            -- Info and documentation + Hover actions
-            -- vim.lsp.inlay_hint.enable(false)
+        on_attach = function(client, bufnr)
+            -- you can also put keymaps in here
         end,
+        default_settings = {
+            ['rust-analyzer'] = {
+                inlayHints = {
+                    bindingModeHints = { enable = true },
+                    chainingHints = { enable = true },
+                    closingBraceHints = { enable = true },
+                    closureReturnTypeHints = { enable = "always" },
+                    lifetimeElisionHints = { enable = "always" },
+                    typeHints = { enable = true },
+                    parameterHints = { enable = true },
+                    chainingHints = true,       -- foo().bar() → type
+                    maxLength = nil,            -- optional: show long types
+                    otherHints = true,          -- generic constraints, etc.
+
+                },
+            },
+        },
     },
-})
-require("ferris").setup({ })
+    -- DAP configuration
+    dap = {
+    },
+}
+
+
+require("lsp-endhints").setup {
+    autoEnableHints = true,
+    label = { 
+        truncateAtChars = 500 
+    },
+    icons = {
+        type = ": ",
+        parameter = "<= ",
+        offspec = "? ", -- hint kind not defined in official LSP spec
+        unknown = "=> ", -- hint kind is nil
+    },
+}
+
+vim.keymap.set("n", "<leader>h", function() 
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+
+end)
+
+
+-- require("ferris").setup({ })
 require("lsp_lines").setup({ })
 local diagnostics_active = true
 vim.diagnostic.config({
