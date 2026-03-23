@@ -374,16 +374,23 @@ vim.g.rustaceanvim = {
         default_settings = {
             ['rust-analyzer'] = {
                 inlayHints = {
+
+                    maxLength = nil,
+
                     bindingModeHints = { enable = true },
                     chainingHints = { enable = true },
-                    closingBraceHints = { enable = true },
-                    closureReturnTypeHints = { enable = "always" },
-                    lifetimeElisionHints = { enable = "always" },
+                    closingBraceHints = { enable = true, minLines = 80 },
+                    closureReturnTypeHints = { enable = "never" },
+                    closureStyle = "rust_analyzer",
+                    discriminantHints = { enable = "never"},
+                    genericParameterHints = {
+                        const = { enable = true },
+                        lifetime = { enable = true },
+                        type = { enable = true }
+                    },
+                    lifetimeElisionHints = { enable = "never", useParameterNames = true },
                     typeHints = { enable = true },
                     parameterHints = { enable = true },
-                    chainingHints = true,       -- foo().bar() → type
-                    maxLength = nil,            -- optional: show long types
-                    otherHints = true,          -- generic constraints, etc.
 
                 },
             },
